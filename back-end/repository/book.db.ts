@@ -1,4 +1,5 @@
 import { Book } from '../model/book'
+import { User } from '../model/user'
 
 const books = [
     new Book({title: "test title", author: "fictional author", synopsis: "lang lang geleden in verwegistan", users: []})
