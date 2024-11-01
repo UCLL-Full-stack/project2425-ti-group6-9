@@ -38,6 +38,22 @@
  *              synopsis:
  *                  type: string
  *                  description: Inputted Synopsis of new Book.
+ *      User:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: number
+ *                  format: int64
+ *              username:
+ *                  type: string
+ *                  description: User's name
+ *              password:
+ *                  type: string
+ *                  description: User's password
+ *              books:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Book'
  */
 import express, { NextFunction, Request, Response } from 'express';
 import bookService from '../service/book.service';
