@@ -80,6 +80,7 @@ const AddBookForm: React.FC = () => {
 
         <button type="submit">Add Book</button>
       </form>
+      <button onClick={() => window.location.reload()}>Click here to reload the page!</button>
     </div>
   );
 };
