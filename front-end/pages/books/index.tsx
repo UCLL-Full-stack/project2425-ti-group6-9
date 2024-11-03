@@ -4,6 +4,7 @@ import BookService from "@services/BookService";
 import { Book } from "@types";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import AddBookForm from "@components/books/AddBookForm";
 
 const Books: React.FC = () => {
     
@@ -14,6 +15,10 @@ const Books: React.FC = () => {
         const json = await response.json();
         setBooks(json);
     };
+
+    const handleAddBook = (newBook: Book) => {
+        setBooks((prevBooks) => [...prevBooks, newBook]);
+      };
 
     useEffect(() => {
         getBooks();
@@ -32,6 +37,8 @@ const Books: React.FC = () => {
                 <section>
                     <h2>Books overview</h2>
                 </section>
+
+                <AddBookForm />
 
                 {books && <BookOverviewTable books={books} />}
             </main>
