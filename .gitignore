@@ -105,3 +105,7 @@ dist
 
 .DS_Store
 .vscode
+
+# Maarten additions
+# Markdown files are my personal notes to keep track of things TODO in folders
+.md
