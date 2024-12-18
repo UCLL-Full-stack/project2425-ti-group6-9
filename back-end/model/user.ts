@@ -9,6 +9,7 @@ export class User {
     constructor(user: {username: string, password: string, books: Book[], id?: number}) {
         this.validate(user);
         
+        this.id = user.id;
         this.username = user.username;
         this.password = user.password;
         this.books = user.books;
