@@ -1,35 +1,35 @@
 import { User } from "./user";
 import { Book } from "./book";
-import { User as UserPrisma, Book as BookPrisma, Status as StatusPrisma } from '@prisma/client';
+import { User as UserPrisma, Book as BookPrisma, LeesStatus as LeesStatusPrisma } from '@prisma/client';
 
-export class Status {
+export class LeesStatus {
     private id?: number;
     private status: string;
     private progress: number; // Huidige pagina
     private user: User;
     private book: Book;
 
-    constructor(status: {status: string, progress: number, user: User, book: Book, id?: number}) {
-        this.validate(status);
+    constructor(leesstatus: {status: string, progress: number, user: User, book: Book, id?: number}) {
+        this.validate(leesstatus);
 
-        this.id = status.id;
-        this.status = status.status;
-        this.progress = status.progress;
-        this.user = status.user;
-        this.book = status.book;
+        this.id = leesstatus.id;
+        this.status = leesstatus.status;
+        this.progress = leesstatus.progress;
+        this.user = leesstatus.user;
+        this.book = leesstatus.book;
     }
 
-    validate(status: {status: string, progress: number, user: User, book: Book}) {
-        if (!status.status) {
+    validate(leesstatus: {status: string, progress: number, user: User, book: Book}) {
+        if (!leesstatus.status) {
             throw new Error("Status is mandatory.");
         }
-        if (!status.book) {
+        if (!leesstatus.book) {
             throw new Error("Book is mandatory.");
         }
-        if (status.progress < 0 || status.progress > status.book.getLength()) {
+        if (leesstatus.progress < 0 || leesstatus.progress > leesstatus.book.getLength()) {
             throw new Error("Progress must be within the range of 0 and the book's length.");
         }
-        if (!status.user) {
+        if (!leesstatus.user) {
             throw new Error("User is mandatory.");
         }
     }
@@ -55,7 +55,7 @@ export class Status {
     }
 
     // Utility Methods
-    static equals(status1: Status, status2: Status): boolean {
+    static equals(status1: LeesStatus, status2: LeesStatus): boolean {
         return (
             status1.id === status2.id &&
             status1.status === status2.status &&
@@ -65,8 +65,8 @@ export class Status {
         );
     }
 
-    static from({ id, status, user, book, progress }: StatusPrisma & {user: UserPrisma; book: BookPrisma}): Status {
-        return new Status({
+    static from({ id, status, user, book, progress }: LeesStatusPrisma & {user: UserPrisma; book: BookPrisma}): LeesStatus {
+        return new LeesStatus({
             id,
             status,
             user: User.from(user), // convert user from Prisma

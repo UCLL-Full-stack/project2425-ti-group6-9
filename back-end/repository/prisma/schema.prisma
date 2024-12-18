@@ -16,7 +16,7 @@ model Book {
     synopsis    String
     length      Int
     reviews     Review[]
-    statuses    Status[]
+    leesstatuses    LeesStatus[]
     users       User[]      @relation("UserBooks")
 }
 
@@ -27,7 +27,7 @@ model User {
     username    String      @unique
     password    String
     reviews     Review[]
-    statuses    Status[]
+    leesstatuses    LeesStatus[]
     books       Book[]      @relation("UserBooks")
 }
 
@@ -43,7 +43,7 @@ model Review {
     bookId      Int
 }
 
-model Status {
+model LeesStatus {
     id          Int         @id @default(autoincrement())
     status      String
     progress    Int

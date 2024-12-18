@@ -1,19 +1,25 @@
 import { Book } from './book';
-import { User as UserPrisma, Book as BookPrisma } from '@prisma/client';
+import { LeesStatus } from './leesStatus';
+import { Review } from './review';
+import { User as UserPrisma, Book as BookPrisma, Review as ReviewPrisma, LeesStatus as LeesStatusPrisma } from '@prisma/client';
 
 export class User {
     private id?: number;
     private username: string;
     private password: string;
     private books?: Book[];
+    private reviews?: Review[];
+    private leesstatuses?: LeesStatus[];
 
-    constructor(user: {username: string, password: string, books?: Book[], id?: number}) {
+    constructor(user: {username: string, password: string, books?: Book[], reviews?: Review[], leesstatuses?: LeesStatus[], id?: number}) {
         this.validate(user);
         
         this.id = user.id;
         this.username = user.username;
         this.password = user.password;
         this.books = user.books;
+        this.reviews = user.reviews;
+        this.leesstatuses = user.leesstatuses;
     }
 
     validate(user: {username: string, password: string, id?: number}) {
@@ -41,6 +47,14 @@ export class User {
         return this.books;
     }
 
+    getReviews(): Review[] | undefined {
+        return this.reviews;
+    }
+
+    getLeesStatuses(): LeesStatus[] | undefined {
+        return this.leesstatuses;
+    }
+
     equals(user: User): boolean {
         return (
             this.id === user.getId() &&
@@ -52,12 +66,13 @@ export class User {
         );
     }
 
-    static from({ id, username, password, books }: UserPrisma & { books?: BookPrisma[] }): User {
+    static from({ id, username, password, books, reviews, leesstatuses }: UserPrisma & { books?: BookPrisma[]; reviews?: (ReviewPrisma[] & { book: BookPrisma}); leesstatuses?: LeesStatusPrisma[] }): User {
         return new User({
             id,
             username,
             password,
-            books: books ? books.map((book) => Book.from(book)): []
+            books: books ? books.map((book) => Book.from(book)): [],
+            reviews: reviews ? reviews.map((review) => Review.fromWithoutUser(review)): []
         });
     }
     

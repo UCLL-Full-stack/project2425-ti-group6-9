@@ -25,4 +25,4 @@ Vraag tijdens de les feedback over volgende punten:
 
 Extra feedback:
 
-Validatie die nu in service ziet kan en moet enkel via domein gebeuren.
+Validatie die nu in service ziet kan en moet enkel via domein gebeuren. // GEDAAN

@@ -74,4 +74,14 @@ export class Review {
             book: Book.from(book) // Convert BookPrisma to Book
         });
     }
+
+    static fromWithoutUser({ id, comment, rating, book }: ReviewPrisma & { book: BookPrisma}): Review {
+        return new Review({
+            id,
+            comment: comment ?? undefined,
+            rating,
+            user: undefined as any, // Convert UserPrisma to User
+            book: Book.from(book) // Convert BookPrisma to Book
+        });
+    }
 }
