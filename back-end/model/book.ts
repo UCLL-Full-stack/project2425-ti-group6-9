@@ -7,9 +7,8 @@ export class Book {
     private author: string;
     private length: number;
     private synopsis: string;
-    private users?: User[];
 
-    constructor(book: {title: string, author: string, length: number, synopsis: string, users?: User[], id?: number}){
+    constructor(book: {title: string, author: string, length: number, synopsis: string, id?: number}){
         this.validate(book);
 
         this.id = book.id;
@@ -17,7 +16,6 @@ export class Book {
         this.author = book.author;
         this.length = book.length;
         this.synopsis = book.synopsis;
-        this.users = book.users;
     }
 
     validate(book: {title: string, author: string, length: number, synopsis: string, id?: number}) {
@@ -55,20 +53,13 @@ export class Book {
         return this.synopsis;
     }
 
-    getUsers(): User[] | undefined {
-        return this.users;
-    }
-
     equals(book: Book): boolean {
         return (
             this.id === book.getId() &&
             this.title === book.getTitle() &&
             this.author === book.getAuthor() &&
             this.length === book.getLength() &&
-            this.synopsis === book.getSynopsis() // &&
-            // ***this.users.every((user, index) => user.equals(book.getUsers()[index]))
-            // This causes an infinite loop with user.equals()
-            // Ignoring for now, will have to ask later.
+            this.synopsis === book.getSynopsis()
         );
     }
 

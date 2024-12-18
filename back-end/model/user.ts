@@ -8,18 +8,14 @@ export class User {
     private username: string;
     private password: string;
     private books?: Book[];
-    private reviews?: Review[];
-    private leesstatuses?: LeesStatus[];
 
-    constructor(user: {username: string, password: string, books?: Book[], reviews?: Review[], leesstatuses?: LeesStatus[], id?: number}) {
+    constructor(user: {username: string, password: string, books?: Book[], id?: number}) {
         this.validate(user);
         
         this.id = user.id;
         this.username = user.username;
         this.password = user.password;
         this.books = user.books;
-        this.reviews = user.reviews;
-        this.leesstatuses = user.leesstatuses;
     }
 
     validate(user: {username: string, password: string, id?: number}) {
@@ -47,32 +43,21 @@ export class User {
         return this.books;
     }
 
-    getReviews(): Review[] | undefined {
-        return this.reviews;
-    }
-
-    getLeesStatuses(): LeesStatus[] | undefined {
-        return this.leesstatuses;
-    }
-
     equals(user: User): boolean {
         return (
             this.id === user.getId() &&
             this.username === user.getUsername() &&
             this.password === user.getPassword() // &&
             // ***this.books.every((book, index) => book.equals(user.getBooks()[index]))
-            // This causes an infinite loop with book.equals()
-            // Ignoring for now, will have to ask later.
         );
     }
 
-    static from({ id, username, password, books, reviews, leesstatuses }: UserPrisma & { books?: BookPrisma[]; reviews?: (ReviewPrisma[] & { book: BookPrisma}); leesstatuses?: LeesStatusPrisma[] }): User {
+    static from({ id, username, password, books }: UserPrisma & { books?: BookPrisma[] }): User {
         return new User({
             id,
             username,
             password,
-            books: books ? books.map((book) => Book.from(book)): [],
-            reviews: reviews ? reviews.map((review) => Review.fromWithoutUser(review)): []
+            books: books ? books.map((book) => Book.from(book)): []
         });
     }
     

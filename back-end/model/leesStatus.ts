@@ -69,8 +69,8 @@ export class LeesStatus {
         return new LeesStatus({
             id,
             status,
-            user: User.from(user), // convert user from Prisma
-            book: Book.from(book), // convert book from Prisma
+            user: User.from(user),
+            book: Book.from(book), 
             progress
         });
     }

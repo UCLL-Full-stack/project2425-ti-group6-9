@@ -8,28 +8,45 @@ import database from './database';
 
 const getAllBooks = async (): Promise<Book[]> => {
     try {
-        const booksPrisma = await database.book.findMany({
-            include: {
-
-            }
-        })
+        const booksPrisma = await database.book.findMany({});
+        return booksPrisma.map((bookPrisma) => Book.from(bookPrisma));
     } catch (error) {
         console.error(error);
         throw new Error('Database error. See server log for details.');
     }
 };
 
-// const getBookById = ({ id }: { id: number }): Book | null => {
-//     return books.find((book) => book.getId() === id) || null;
-// };
+const getBookById = async ({ id }: {id: number}): Promise<Book | null> => {
+    try {
+        const bookPrisma = await database.book.findUnique({
+            where: { id }
+        });
+        return bookPrisma ? Book.from(bookPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
 
-// const createBook = (book: Book): Book => {
-//     books.push(book);
-//     return book;
-// };
+const createBook = async (book: Book): Promise<Book> => {
+    try {
+        const bookPrisma = await database.book.create({
+            data: {
+                title: book.getTitle(),
+                author: book.getAuthor(),
+                length: book.getLength(),
+                synopsis: book.getSynopsis(),
+            }
+        });
+        return Book.from(bookPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
 
-// export default {
-//     getAllBooks,
-//     getBookById,
-//     createBook,
-// };
+export default {
+    getAllBooks,
+    getBookById,
+    createBook,
+};
