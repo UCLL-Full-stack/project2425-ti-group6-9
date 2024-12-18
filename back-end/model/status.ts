@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Book } from "./book";
+import { User as UserPrisma, Book as BookPrisma, Status as StatusPrisma } from '@prisma/client';
 
 export class Status {
     private id?: number;
@@ -62,5 +63,15 @@ export class Status {
             status1.user === status2.user &&
             status1.book === status2.book
         );
+    }
+
+    static from({ id, status, user, book, progress }: StatusPrisma & {user: UserPrisma; book: BookPrisma}): Status {
+        return new Status({
+            id,
+            status,
+            user: User.from(user), // convert user from Prisma
+            book: Book.from(book), // convert book from Prisma
+            progress
+        });
     }
 }

@@ -1,5 +1,6 @@
 import { User } from "./user";
 import { Book } from "./book";
+import { Review as ReviewPrisma, User as UserPrisma, Book as BookPrisma } from '@prisma/client';
 
 export class Review {
     private id?: number;
@@ -62,5 +63,15 @@ export class Review {
             review1.user === review2.user &&
             review1.book === review2.book
         );
+    }
+
+    static from({ id, comment, rating, user, book }: ReviewPrisma & { user: UserPrisma; book: BookPrisma}): Review {
+        return new Review({
+            id,
+            comment: comment ?? undefined,
+            rating,
+            user: User.from(user), // Convert UserPrisma to User
+            book: Book.from(book) // Convert BookPrisma to Book
+        });
     }
 }

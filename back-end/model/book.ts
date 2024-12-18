@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Book as BookPrisma } from '@prisma/client';
 
 export class Book {
     private id?: number;
@@ -6,9 +7,9 @@ export class Book {
     private author: string;
     private length: number;
     private synopsis: string;
-    private users: User[];
+    private users?: User[];
 
-    constructor(book: {title: string, author: string, length: number, synopsis: string, users: User[], id?: number}){
+    constructor(book: {title: string, author: string, length: number, synopsis: string, users?: User[], id?: number}){
         this.validate(book);
 
         this.id = book.id;
@@ -19,7 +20,7 @@ export class Book {
         this.users = book.users;
     }
 
-    validate(book: {title: string, author: string, length: number, synopsis: string, users: User[], id?: number}) {
+    validate(book: {title: string, author: string, length: number, synopsis: string, id?: number}) {
         if (!book.title) {
             throw new Error('Title is required');
         }
@@ -31,9 +32,6 @@ export class Book {
         }
         if (!book.synopsis) {
             throw new Error('Synopsis is required');
-        }
-        if (!book.users) {
-            throw new Error('Users are required');
         }
     }
 
@@ -57,7 +55,7 @@ export class Book {
         return this.synopsis;
     }
 
-    getUsers(): User[] {
+    getUsers(): User[] | undefined {
         return this.users;
     }
 
@@ -74,5 +72,13 @@ export class Book {
         );
     }
 
-
+    static from({ id, title, author, length, synopsis }: BookPrisma ): Book {
+        return new Book({
+            id,
+            title,
+            author,
+            length,
+            synopsis
+        });
+    }
 }

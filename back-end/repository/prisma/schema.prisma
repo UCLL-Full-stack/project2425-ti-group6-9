@@ -35,7 +35,7 @@ model Review {
     id          Int         @id @default(autoincrement())
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
-    content     String?
+    comment     String?
     rating      Int         @default(0)
     user        User        @relation(fields: [userId], references: [id])
     book        Book        @relation(fields: [bookId], references: [id])
@@ -46,6 +46,7 @@ model Review {
 model Status {
     id          Int         @id @default(autoincrement())
     status      String
+    progress    Int
     user        User        @relation(fields: [userId], references: [id])
     book        Book        @relation(fields: [bookId], references: [id])
     userId      Int

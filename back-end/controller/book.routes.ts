@@ -19,6 +19,9 @@
  *              author:
  *                  type: string
  *                  description: Book author.
+ *              length:
+ *                  type: number
+ *                  description: Book length (in pages).
  *              synopsis:
  *                  type: string
  *                  description: Book synopsis.
@@ -35,6 +38,9 @@
  *              author:
  *                  type: string
  *                  description: Inputted Author of new Book.
+ *              length:
+ *                  type: number
+ *                  description: Inputted Length of new Book.
  *              synopsis:
  *                  type: string
  *                  description: Inputted Synopsis of new Book.

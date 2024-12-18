@@ -1,12 +1,13 @@
 import { Book } from './book';
+import { User as UserPrisma, Book as BookPrisma } from '@prisma/client';
 
 export class User {
     private id?: number;
     private username: string;
     private password: string;
-    private books: Book[];
+    private books?: Book[];
 
-    constructor(user: {username: string, password: string, books: Book[], id?: number}) {
+    constructor(user: {username: string, password: string, books?: Book[], id?: number}) {
         this.validate(user);
         
         this.id = user.id;
@@ -15,15 +16,12 @@ export class User {
         this.books = user.books;
     }
 
-    validate(user: {username: string, password: string, books: Book[], id?: number}) {
+    validate(user: {username: string, password: string, id?: number}) {
         if (!user.username) {
             throw new Error('Username is required');
         }
         if (!user.password) {
             throw new Error('Password is required');
-        }
-        if (!user.books) {
-            throw new Error('Books are required');
         }
     }
 
@@ -39,7 +37,7 @@ export class User {
         return this.password;
     }
 
-    getBooks(): Book[] {
+    getBooks(): Book[] | undefined {
         return this.books;
     }
 
@@ -53,4 +51,14 @@ export class User {
             // Ignoring for now, will have to ask later.
         );
     }
+
+    static from({ id, username, password, books }: UserPrisma & { books?: BookPrisma[] }): User {
+        return new User({
+            id,
+            username,
+            password,
+            books: books ? books.map((book) => Book.from(book)): []
+        });
+    }
+    
 };
