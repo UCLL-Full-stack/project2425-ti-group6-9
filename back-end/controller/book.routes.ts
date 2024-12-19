@@ -121,4 +121,63 @@ bookRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
     }
 });
 
+/**
+ * @swagger
+ * /books/{id}:
+ *  get:
+ *      security:
+ *         - bearerAuth: []
+ *      summary: Get a book by id.
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            schema:
+ *              type: integer
+ *              required: true
+ *              description: The book id.
+ *      responses:
+ *          200:
+ *              description: A book object.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Book'
+ */
+bookRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const book = await bookService.getBookById(Number(req.params.id));
+        res.status(200).json(book);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /books/title/{title}:
+ *  get:
+ *      summary: Get a book by title.
+ *      parameters:
+ *          - in: path
+ *              name: title
+ *              schema:
+ *                  type: string
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: A book object.
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Book'
+ */
+bookRouter.get('/title/:title', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const book = await bookService.getBookByTitle(req.params.title);
+        res.status(200).json(book);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { bookRouter };
