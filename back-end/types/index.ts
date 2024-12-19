@@ -14,7 +14,25 @@ type UserInput = {
     books?: BookInput[]
 };
 
+type LeesStatusInput = {
+    id?: number,
+    status: string,
+    progress: number,
+    user: UserInput,
+    book: BookInput
+};
+
+type ReviewInput = {
+    id?: number,
+    rating: number,
+    comment?: string,
+    user: UserInput,
+    book: BookInput
+};
+
 export {
     BookInput,
     UserInput,
+    LeesStatusInput,
+    ReviewInput,
 }

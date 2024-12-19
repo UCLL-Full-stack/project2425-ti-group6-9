@@ -89,10 +89,27 @@ const getAllLeesStatusesByBookId = async ( { bookId }: { bookId: number }): Prom
     }
 }
 
+const getLeesStatusByUserAndBook = async ( { userId, bookId }: { userId: number, bookId: number }): Promise<LeesStatus | null> => {
+    try {
+        const leesStatusPrisma = await database.leesStatus.findFirst({
+            where: { userId, bookId },
+            include: {
+                user: true,
+                book: true,
+            },
+        });
+        return leesStatusPrisma ? LeesStatus.from(leesStatusPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
 export default {
     getAllLeesStatuses,
     createLeesStatus,
     getLeesStatusById,
     getAllLeesStatusesByUserId,
     getAllLeesStatusesByBookId,
+    getLeesStatusByUserAndBook,
 }
