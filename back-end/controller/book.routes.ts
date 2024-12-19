@@ -159,10 +159,10 @@ bookRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
  *      summary: Get a book by title.
  *      parameters:
  *          - in: path
- *              name: title
- *              schema:
- *                  type: string
- *              required: true
+ *            name: title
+ *            schema:
+ *                type: string
+ *            required: true
  *      responses:
  *          200:
  *              description: A book object.
