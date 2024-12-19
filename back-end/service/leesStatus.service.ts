@@ -1,6 +1,6 @@
 import leesStatusDb from "../repository/leesStatus.db";
 import { LeesStatus } from "../model/leesStatus";
-import { LeesStatusInput, UserInput, BookInput } from "../types";
+import { LeesStatusInput } from "../types";
 import userDb from "../repository/user.db";
 import bookDb from "../repository/book.db";
 

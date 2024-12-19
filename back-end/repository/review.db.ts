@@ -85,10 +85,27 @@ const getAllReviewsByBookID = async ( { bookId }: { bookId: number }): Promise<R
     }
 }
 
+const getReviewByUserAndBook = async ({ userId, bookId }: { userId: number, bookId: number }): Promise<Review | null> => {
+    try {
+        const reviewPrisma = await database.review.findFirst({
+            where: { userId, bookId },
+            include: {
+                user: true,
+                book: true,
+            },
+        });
+        return reviewPrisma ? Review.from(reviewPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
 export default {
     createReview,
     getAllReviews,
     getReviewById,
     getAllReviewsByUserID,
-    getAllReviewsByBookID
+    getAllReviewsByBookID,
+    getReviewByUserAndBook,
 }
