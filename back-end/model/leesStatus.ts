@@ -65,13 +65,13 @@ export class LeesStatus {
         );
     }
 
-    static from({ id, status, user, book, progress }: LeesStatusPrisma & {user: UserPrisma; book: BookPrisma}): LeesStatus {
+    static from({ id, status, progress, user, book }: LeesStatusPrisma & {user: UserPrisma; book: BookPrisma}): LeesStatus {
         return new LeesStatus({
             id,
             status,
+            progress,
             user: User.from(user),
             book: Book.from(book), 
-            progress
         });
     }
 }

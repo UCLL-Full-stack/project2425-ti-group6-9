@@ -45,8 +45,21 @@ const createBook = async (book: Book): Promise<Book> => {
     }
 }
 
+const getBookByTitle = async ({ title }: { title: string}): Promise<Book | null> => {
+    try {
+        const bookPrisma = await database.book.findUnique({
+            where: { title },
+        });
+        return bookPrisma ? Book.from(bookPrisma) : null;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+}
+
 export default {
     getAllBooks,
     getBookById,
     createBook,
+    getBookByTitle,
 };
