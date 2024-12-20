@@ -8,10 +8,11 @@ import AddBookForm from "@components/books/AddBookForm";
 
 const Books: React.FC = () => {
     
-    const [books, setBooks] = useState<Array<Book>>([]);
+    const [books, setBooks] = useState<Book[]>([]);
     
     const getBooks = async () => {
         const response = await BookService.getAllBooks();
+        console.log(response);
         const json = await response.json();
         setBooks(json);
     };

@@ -161,4 +161,38 @@ userRouter.get('/username/:username', async (req: Request, res: Response, next: 
     }
 });
 
+/**
+ * @swagger
+ * /users/{userId}/books/{bookId}:
+ *   put:
+ *     summary: Add a book to a user's reading list
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - in: path
+ *         name: bookId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The updated user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
+userRouter.put('/users/:userId/books/:bookId', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { userId, bookId } = req.params;
+        const updatedUser = await userService.userReadsBook({ userId: Number(userId), bookId: Number(bookId) });
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        next(error);
+    }
+});
+
 export { userRouter };

@@ -1,6 +1,21 @@
 import bookDb from "../repository/book.db";
 import { Book } from "../model/book";
-import { BookInput } from "../types";
+import { BookInput, Role } from "../types";
+import userDb from "../repository/user.db";
+
+const getBooks = async ({ username, role}: { username: string; role: Role }): Promise<Book[]> => {
+    console.log(role);
+    return bookDb.getAllBooks();
+    // if (role === 'admin') {
+    //     return bookDb.getAllBooks();
+    // } else if (role === 'lecturer') {
+    //     return userDb.get({ username });
+    // } else {
+    //     throw new UnauthorizedError('credentials_required', {
+    //         message: 'You are not authorized to access this resource.',
+    //     });
+    // }
+}
 
 const getAllBooks = async (): Promise<Book[]> => bookDb.getAllBooks();
 
@@ -35,4 +50,5 @@ export default {
     createBook,
     getBookById,
     getBookByTitle,
+    getBooks
 };

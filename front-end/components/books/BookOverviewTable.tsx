@@ -2,7 +2,7 @@ import React from 'react';
 import { Book } from '@types';
 
 type Props = {
-  books: Array<Book>;
+  books: Book[];
 };
 
 const BookOverviewTable: React.FC<Props> = ({ books }: Props) => {
@@ -14,6 +14,7 @@ const BookOverviewTable: React.FC<Props> = ({ books }: Props) => {
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Author</th>
+              <th scope="col">Length</th>
               <th scope="col">Synopsis</th>
             </tr>
           </thead>
@@ -22,6 +23,7 @@ const BookOverviewTable: React.FC<Props> = ({ books }: Props) => {
               <tr key={index} onClick={() => {}} role="button">
                 <td>{book.title}</td>
                 <td>{book.author}</td>
+                <td>{book.length}</td>
                 <td>{book.synopsis}</td>
               </tr>
             ))}

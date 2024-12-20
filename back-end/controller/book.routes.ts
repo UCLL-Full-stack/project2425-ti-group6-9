@@ -63,7 +63,7 @@
  */
 import express, { NextFunction, Request, Response } from 'express';
 import bookService from '../service/book.service';
-import { BookInput } from '../types';
+import { BookInput, Role } from '../types';
 
 const bookRouter = express.Router();
 
@@ -85,7 +85,10 @@ const bookRouter = express.Router();
  */
 bookRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const books = await bookService.getAllBooks();
+        console.log('test');
+        const request = req as Request & { auth: { username: string; role: Role } };
+        console.log(request);
+        const books = await bookService.getBooks({ username: request.auth.username, role: request.auth.role });
         res.status(200).json(books);
     } catch (error) {
         next(error);

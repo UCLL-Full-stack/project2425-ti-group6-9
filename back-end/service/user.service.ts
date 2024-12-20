@@ -1,4 +1,5 @@
 import UserDb from '../repository/user.db';
+import BookDb from '../repository/book.db';
 import bcrypt from 'bcrypt';
 import { User } from '../model/user';
 import { AuthenticationResponse, UserInput } from '../types';
@@ -20,6 +21,18 @@ const createUser = async ({
 
     const user = new User({ username, password: hashedPassword, books: [], role });
     return UserDb.createUser(user);
+}
+
+const userReadsBook = async ({ userId, bookId }: { userId: number; bookId: number }): Promise<User | null> => {
+    const user = await UserDb.getUserById({ id: userId });
+    if (!user) {
+        throw new Error(`User with ID ${userId} not found`);
+    }
+    const book = await BookDb.getBookById({ id: bookId });
+    if (!book) {
+        throw new Error(`Book with ID ${bookId} not found`);
+    }
+    return UserDb.userReadsBook({ userId, bookId });
 }
 
 const authenticate = async ( {username, password }: UserInput): Promise<AuthenticationResponse> => {
@@ -62,4 +75,5 @@ export default {
     getAllUsers,
     getUserById,
     getUserByUsername,
+    userReadsBook,
 };

@@ -38,6 +38,26 @@ const getAllUsers = async (): Promise<User[]> => {
     }    
 }
 
+const userReadsBook = async ({ userId, bookId }: { userId: number; bookId: number }): Promise<User | null> => {
+    try {
+        const userPrisma = await database.user.update({
+            where: { id: userId },
+            data: {
+                books: {
+                    connect: { id: bookId },
+                },
+            },
+            include: {
+                books: true,
+            },
+        });
+        return User.from(userPrisma);
+    } catch (error) {
+        console.error(error);
+        throw new Error('Database error. See server log for details.');
+    }
+};
+
 const getUserById = async ({ id }: { id: number }): Promise<User | null> => {
     try {
         const userPrisma = await database.user.findUnique({
@@ -72,5 +92,6 @@ export default {
     createUser,
     getAllUsers,
     getUserById,
-    getUserByUsername
+    getUserByUsername,
+    userReadsBook
 }
