@@ -36,7 +36,7 @@ const reviewRouter = express.Router();
 
 /**
  * @swagger
- * /review:
+ * /reviews:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -62,8 +62,10 @@ reviewRouter.get('/', async (req: Request, res: Response, next: NextFunction) =>
 
 /**
  * @swagger
- * /review:
+ * /reviews:
  *   post:
+ *      security:
+ *       - bearerAuth: []
  *      summary: Create a new review.
  *      requestBody:
  *        required: true
@@ -91,7 +93,7 @@ reviewRouter.post('/', async (req: Request, res: Response, next: NextFunction) =
 
 /**
  * @swagger
- * /review/{id}:
+ * /reviews/{id}:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -123,7 +125,7 @@ reviewRouter.get('/:id', async (req: Request, res: Response, next: NextFunction)
 
 /**
  * @swagger
- * /review/user/{userId}:
+ * /reviews/user/{userId}:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -157,7 +159,7 @@ reviewRouter.get('/user/:userId', async (req: Request, res: Response, next: Next
 
 /**
  * @swagger
- * /review/book/{bookId}:
+ * /reviews/book/{bookId}:
  *   get:
  *     security:
  *       - bearerAuth: []
@@ -191,7 +193,7 @@ reviewRouter.get('/book/:bookId', async (req: Request, res: Response, next: Next
 
 /**
  * @swagger
- * /review/user/{userId}/book/{bookId}:
+ * /reviews/user/{userId}/book/{bookId}:
  *   get:
  *     security:
  *       - bearerAuth: []

@@ -13,10 +13,13 @@ const getAllBooks = async () => {
 };
 
 const addBook = async (book: Book) => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const token = loggedInUser ? JSON.parse(loggedInUser).token : null;
   return await fetch(process.env.NEXT_PUBLIC_API_URL + '/books', {
     method: "POST",
     headers: {
       "content-type": "application/json",
+      "Authorization": `Bearer ${token}`,
     },
     body: JSON.stringify(book)
   })

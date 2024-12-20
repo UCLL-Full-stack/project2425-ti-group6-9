@@ -85,9 +85,7 @@ const bookRouter = express.Router();
  */
 bookRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log('test');
         const request = req as Request & { auth: { username: string; role: Role } };
-        console.log(request);
         const books = await bookService.getBooks({ username: request.auth.username, role: request.auth.role });
         res.status(200).json(books);
     } catch (error) {

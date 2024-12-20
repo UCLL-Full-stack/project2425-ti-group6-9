@@ -12,6 +12,14 @@ export type User = {
     role?: string;
 };
 
+export type Review = {
+    id?: number,
+    rating: number,
+    comment?: string,
+    userId: number,
+    bookId: number,
+};
+
 export type StatusMessage = {
     message: string;
     type: "error" | "success";

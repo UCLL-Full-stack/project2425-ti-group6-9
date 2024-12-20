@@ -12,6 +12,7 @@
         "label": { "username": "Username:", "password": "Password:" }
     },
     "header": {
+        "title": "Bookreader App",
         "welcome": "Welcome",
         "nav": {
             "home": "Home",
@@ -19,5 +20,16 @@
             "login": "Login",
             "logout": "Logout"
         }
+    },
+    "review": {
+        "title": "Review",
+        "button": "Submit",
+        "success": "Review submitted successfully.",
+        "by": "Review by",
+        "validate": {
+            "rating": "Rating is required",
+            "comment": "Comment is required"
+        },
+        "label": { "rating": "Rating:", "comment": "Comment:" }
     }
 }

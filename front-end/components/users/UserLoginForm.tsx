@@ -59,7 +59,8 @@ const UserLoginForm: React.FC = () => {
         JSON.stringify({
           token: user.token,
           username: user.username,
-          role: user.role
+          role: user.role,
+          id: user.id
         })
       );
       setStatusMessages([{message: t('login.success'), type: 'success'}]);
@@ -100,7 +101,7 @@ const UserLoginForm: React.FC = () => {
         </div>
       )}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="nameInput" className="block mb-2 text-sm font-medium">
+        <label htmlFor="nameInput" className="block mb-2 text-sm font-medium text-gray-800">
           {t('login.label.username')}
         </label>
         <div className="block mb-2 text-sm font-medium">
@@ -109,7 +110,7 @@ const UserLoginForm: React.FC = () => {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="w-full h-9 bg-gray-200 rounded-xl pt-2 px-2 bg-opacity-20 text-white placeholder-gray-800"
+            className="w-full h-9 bg-gray-800 rounded-xl pt-2 px-2 bg-opacity-20 text-black placeholder-gray-800"
           />
           {nameError && <div className="text-red-800 ">{nameError}</div>}
         </div>
@@ -117,7 +118,7 @@ const UserLoginForm: React.FC = () => {
           <div>
             <label
               htmlFor="passwordInput"
-              className="block mb-2 text-sm font-medium"
+              className="block mb-2 text-sm font-medium text-gray-800"
             >
               {t('login.label.password')}
             </label>
@@ -128,7 +129,7 @@ const UserLoginForm: React.FC = () => {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full h-9 bg-gray-200 rounded-xl pt-2 px-2 bg-opacity-20 text-white placeholder-gray-800"
+              className="w-full h-9 bg-gray-800 rounded-xl pt-2 px-2 bg-opacity-20 text-black placeholder-gray-800"
             />
             {passwordError && (
               <div className=" text-red-800">{passwordError}</div>

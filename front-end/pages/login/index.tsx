@@ -13,7 +13,7 @@ const Login: React.FC = () => {
                 <title>{t('app.title')}</title>
             </Head>
             <Header />
-            <main>
+            <main className="bg-white">
                 <section className="p-6 min-h-screen flex flex-col items-center">
                     <UserLoginForm />
                 </section>

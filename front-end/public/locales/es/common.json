@@ -12,6 +12,7 @@
     "label": { "username": "Nombre de usuario:", "password": "Contraseña:" }
     },
     "header": {
+        "title": "Libro App",
         "welcome": "Bienvenido",
         "nav": {
             "home": "Inicio",
@@ -19,5 +20,16 @@
             "login": "Conéctese",
             "logout": "Cerrar sesión"
         }
+    },
+    "review": {
+        "title": "Reseña",
+        "button": "Enviar",
+        "success": "Reseña enviada con éxito.",
+        "by": "Reseña por",
+        "validate": {
+            "rating": "Se requiere una calificación",
+            "comment": "Es obligatorio dejar un comentario"
+        },
+        "label": { "rating": "Calificación:", "comment": "Comentario:" }
     }
 }

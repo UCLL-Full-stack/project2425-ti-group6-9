@@ -2,10 +2,6 @@ import { Book } from '../model/book'
 import { User } from '../model/user'
 import database from './database';
 
-// const books = [
-//     new Book({title: "test title", author: "fictional author", length: 23, synopsis: "lang lang geleden in verwegistan", users: []})
-// ];
-
 const getAllBooks = async (): Promise<Book[]> => {
     try {
         const booksPrisma = await database.book.findMany({});

@@ -4,7 +4,6 @@ import { BookInput, Role } from "../types";
 import userDb from "../repository/user.db";
 
 const getBooks = async ({ username, role}: { username: string; role: Role }): Promise<Book[]> => {
-    console.log(role);
     return bookDb.getAllBooks();
     // if (role === 'admin') {
     //     return bookDb.getAllBooks();
