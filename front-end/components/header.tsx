@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Language from './language/Language';
 
 const Header: React.FC = () => {
   return (
@@ -14,6 +15,10 @@ const Header: React.FC = () => {
         <Link href="/books" className="nav-link px-4 fs-5 text-white">
           Books
         </Link>
+        <Link href="/login" className="nav-link px-4 fs-5 text-white">
+          Login
+        </Link>
+        <Language />
       </nav>
     </header>
   );
