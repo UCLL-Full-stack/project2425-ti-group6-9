@@ -10,7 +10,8 @@ const createUser = async ( user: User): Promise<User> => {
                 password: user.getPassword(),
                 books: {
                     connect: user.getBooks()?.map((book) => ({id: book.getId()})),
-                }
+                },
+                role: user.getRole(),
             },
             include: {
                 books: true,

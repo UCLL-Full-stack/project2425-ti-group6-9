@@ -95,6 +95,16 @@ userRouter.post('/signup', async (req: Request, res: Response, next: NextFunctio
     }
 });
 
+userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userInput = <UserInput>req.body;
+        const response = await userService.authenticate(userInput);
+        res.status(200).json({ message: "Login successful", ...response });
+    } catch (error) {
+        next(error);
+    }
+});
+
 /**
  * @swagger
  * /users/{id}:

@@ -1,3 +1,4 @@
+type Role = 'admin' | 'student' | 'lecturer' | 'guest';
 
 type BookInput = {
     id?: number,
@@ -11,7 +12,8 @@ type UserInput = {
     id?: number,
     username: string,
     password: string,
-    books?: BookInput[]
+    books?: BookInput[],
+    role: Role
 };
 
 type LeesStatusInput = {
@@ -30,9 +32,17 @@ type ReviewInput = {
     book: BookInput
 };
 
+type AuthenticationResponse = {
+    token: string;
+    username: string;
+    role: string;
+};
+
 export {
+    Role,
     BookInput,
     UserInput,
     LeesStatusInput,
     ReviewInput,
+    AuthenticationResponse,
 }

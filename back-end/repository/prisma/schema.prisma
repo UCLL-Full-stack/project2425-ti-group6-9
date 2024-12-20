@@ -29,6 +29,7 @@ model User {
     reviews     Review[]
     leesstatuses    LeesStatus[]
     books       Book[]      @relation("UserBooks")
+    role        String
 }
 
 model Review {

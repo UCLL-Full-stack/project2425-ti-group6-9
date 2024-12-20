@@ -1,3 +1,4 @@
+import { Role } from '../types';
 import { Book } from './book';
 import { LeesStatus } from './leesStatus';
 import { Review } from './review';
@@ -8,22 +9,27 @@ export class User {
     private username: string;
     private password: string;
     private books?: Book[];
+    private role: Role;
 
-    constructor(user: {username: string, password: string, books?: Book[], id?: number}) {
+    constructor(user: {username: string, password: string, books?: Book[], role: Role, id?: number}) {
         this.validate(user);
         
         this.id = user.id;
         this.username = user.username;
         this.password = user.password;
         this.books = user.books;
+        this.role = user.role;
     }
 
-    validate(user: {username: string, password: string, id?: number}) {
-        if (!user.username) {
+    validate(user: {username: string, password: string, role: Role}) {
+        if (!user.username?.trim()) {
             throw new Error('Username is required');
         }
-        if (!user.password) {
+        if (!user.password?.trim()) {
             throw new Error('Password is required');
+        }
+        if (!user.role) {
+            throw new Error('Role is required');
         }
     }
 
@@ -43,6 +49,10 @@ export class User {
         return this.books;
     }
 
+    getRole(): Role {
+        return this.role;
+    }
+
     equals(user: User): boolean {
         return (
             this.id === user.getId() &&
@@ -52,12 +62,13 @@ export class User {
         );
     }
 
-    static from({ id, username, password, books }: UserPrisma & { books?: BookPrisma[] }): User {
+    static from({ id, username, password, books, role }: UserPrisma & { books?: BookPrisma[] }): User {
         return new User({
             id,
             username,
             password,
-            books: books ? books.map((book) => Book.from(book)): []
+            books: books ? books.map((book) => Book.from(book)): [],
+            role: role as Role,
         });
     }
     
